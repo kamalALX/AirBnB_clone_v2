@@ -128,7 +128,8 @@ class HBNBCommand(cmd.Cmd):
         i = 1
         while (i < ln):
             lista2 = lista[i].split("=")
-            setattr(new_instance, lista2[0], lista2[1].strip("\""))
+            lista2[1] = lista2[1].strip("\"").replace("_", " ")
+            setattr(new_instance, lista2[0], lista2[1])
             i += 1
 
         storage.save()

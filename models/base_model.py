@@ -11,6 +11,8 @@ Base = declarative_base()
 class BaseModel:
     """A base class for all hbnb models"""
     id = sqlalchemy.Column(sqlalchemy.String(60), nullable=False, primary_key=True)
+    created_at = sqlalchemy.Column(sqlalchemy.DateTime, nullable=False, default=datetime.utcnow())
+    updated_at = sqlalchemy.Column(sqlalchemy.DateTime, nullable=False, default=datetime.utcnow())
 
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""

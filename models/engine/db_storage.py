@@ -38,7 +38,7 @@ class DBStorage():
         self.__session = Session()
 
     def all(self, cls=None):
-        classes = [cls] if cls else [cls for cls in BaseModel.__subclasses__()]
+        classes = [cls] if cls else [State, City, User, Place, Review, Amenity]
         objects = {}
         for c in classes:
             for obj in self.__session.query(c):

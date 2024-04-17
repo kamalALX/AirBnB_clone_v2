@@ -12,6 +12,9 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
+import os
+from sqlalchemy import MetaData
+
 class DBStorage():
     __engine = None
     __session = None

@@ -2,6 +2,7 @@
 """ Console Module """
 import cmd
 import sys
+import shlex
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
@@ -114,27 +115,40 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, args):
-        lista = args.split(" ")
-        """ Create an object of any class"""
-        if not args:
+        '''
+            Create a new instance of class BaseModel and saves it
+            to the JSON file.
+        '''
+        if len(args) == 0:
             print("** class name missing **")
             return
-        elif lista[0] not in HBNBCommand.classes:
-            print("** class doesn't exist **")
-            return
-        new_instance = HBNBCommand.classes[lista[0]]()
+        elif len(args) == 1:
+            try:
+                args = shlex.split(args)
+                new_instance = eval(args[0])()
+                new_instance.save()
+                print(new_instance.id)
 
-        ln = len(lista)
-        i = 1
-        while (i < ln):
-            lista2 = lista[i].split("=")
-            lista2[1] = lista2[1].strip("\"").replace("_", " ")
-            setattr(new_instance, lista2[0], lista2[1])
-            i += 1
+            except:
+                print("** class doesn't exist **")
+        else:
+            try:
+                args = shlex.split(args)
+                name = args.pop(0)
+                obj = eval(name)()
+                for arg in args:
+                    arg = arg.split('=')
+                    if hasattr(obj, arg[0]):
+                        try:
+                            arg[1] = eval(arg[1])
+                        except:
+                            arg[1] = arg[1].replace('_',' ')
+                        setattr(obj, arg[0], arg[1])
 
-        storage.save()
-        print(new_instance.id)
-
+                obj.save()
+            except:
+                return
+            print(obj.id)
     def help_create(self):
         """ Help information for the create method """
         print("Creates a class of any type")

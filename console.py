@@ -114,18 +114,18 @@ class HBNBCommand(cmd.Cmd):
         """ Overrides the emptyline method of CMD """
         pass
 
-    def do_create(self, args):
+    def do_create(self, line):
         '''
             Create a new instance of class BaseModel and saves it
             to the JSON file.
         '''
-        if len(args) == 0:
+        if len(line) == 0:
             print("** class name missing **")
             return
-        elif len(args) == 1:
+        elif len(line) == 1:
             try:
-                args = shlex.split(args)
-                new_instance = eval(args[0])()
+                line = shlex.split(line)
+                new_instance = eval(line[0])()
                 new_instance.save()
                 print(new_instance.id)
 
@@ -133,10 +133,10 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
         else:
             try:
-                args = shlex.split(args)
-                name = args.pop(0)
+                line = shlex.split(line)
+                name = line.pop(0)
                 obj = eval(name)()
-                for arg in args:
+                for arg in line:
                     arg = arg.split('=')
                     if hasattr(obj, arg[0]):
                         try:

@@ -12,9 +12,9 @@ def do_pack():
     local("mkdir -p versions")
     
     time_stamp = datetime.now().strftime("%Y%m%d%H%M%S")
-    archive_name = "versions/web_static_{}.tgz".format(time_stamp)
+    archive_name = "web_static_{}.tgz".format(time_stamp)
     
-    command = "tar -cvzf {} web_static".format(archive)
+    command = "tar -cvzf versions/{} web_static".format(archive_name)
     result = local(command)
     
     if result.failed:

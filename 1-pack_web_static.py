@@ -13,7 +13,7 @@ def do_pack():
 
     time_stamp = datetime.now().strftime("%Y%m%d%H%M%S")
     archive_name = "web_static_{}.tgz".format(time_stamp)
-    
+
     command = "tar -cvzf versions/{} web_static".format(archive_name)
     result = local(command)
 

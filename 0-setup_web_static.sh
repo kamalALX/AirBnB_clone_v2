@@ -33,6 +33,6 @@ server {
 		alias /data/web_static/current/
 	}
 }
-" sudo tee /etc/nginx/sites-enabled/default > /dev/null
+" > sudo tee /etc/nginx/sites-enabled/default > /dev/null
 
 sudo service nginx restart

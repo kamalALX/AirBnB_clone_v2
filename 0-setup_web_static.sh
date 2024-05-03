@@ -20,19 +20,19 @@ echo "<html>
   <body>
     Holberton School
   </body>
-</html>" | sudo tee /data/web_static/releases/test/index.html > /dev/null
+</html>" > sudo tee /data/web_static/releases/test/index.html
 
 
 ln -sf /data/web_static/releases/test/ /data/web_static/current
 
 echo "
 server {
-	listen 80 default_server
+	listen 80 default_server;
 
 	location /hbnb_static {
-		alias /data/web_static/current/
+		alias /data/web_static/current/;
 	}
 }
-" > sudo tee /etc/nginx/sites-enabled/default > /dev/null
+" > sudo tee /etc/nginx/sites-enabled/default
 
 sudo service nginx restart

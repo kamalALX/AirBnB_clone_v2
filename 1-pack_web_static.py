@@ -7,14 +7,16 @@ from datetime import datetime
 
 
 def do_pack():
+    """ making aechive if web_static folder"""
+
     local("mkdir -p versions")
     
     time_stamp = datetime.now().strftime("%Y%m%d%H%M%S")
     archive_name = "versions/web_static_{}.tgz".format(time_stamp)
     
-    command = "tar -cvzf {} web_static".format(archive_name)
+    command = "tar -cvzf {} web_static".format(archive)
     result = local(command)
     
     if result.failed:
         return None
-    return archive_name
+    return archive

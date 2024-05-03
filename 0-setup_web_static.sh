@@ -4,12 +4,23 @@
 sudo apt-get update
 
 sudo apt install -y nginx
+sudo ufw allow 'Nginx HTTP'
 
-mkdir -p /data/web_static/shared/
-mkdir -p /data/web_static/releases/test/
+sudo mkdir -p /data/
+sudo mkdir -p /data/web_static/
+sudo mkdir -p /data/web_static/releases/
+sudo mkdir -p /data/web_static/shared/
+sudo mkdir -p /data/web_static/releases/test/
+sudo touch /data/web_static/releases/test/index.html
 sudo chown -R ubuntu:ubuntu /data/
 
-echo "Hello mycvs" > sudo tee /data/web_static/releases/test/index.html > /dev/null
+echo "<html>
+  <head>
+  </head>
+  <body>
+    Holberton School
+  </body>
+</html>" > sudo tee /data/web_static/releases/test/index.html > /dev/null
 
 
 ln -sf /data/web_static/releases/test/ /data/web_static/current

@@ -20,7 +20,7 @@ echo "<html>
   <body>
     Holberton School
   </body>
-</html>" > sudo tee /data/web_static/releases/test/index.html > /dev/null
+</html>" | sudo tee /data/web_static/releases/test/index.html > /dev/null
 
 
 ln -sf /data/web_static/releases/test/ /data/web_static/current

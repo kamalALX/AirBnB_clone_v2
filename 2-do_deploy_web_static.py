@@ -14,6 +14,7 @@ def do_deploy(archive_path):
     try:
         rchive_filename = archive_path.split('/')[-1]
         archive_name = archive_filename.split('.')[0]
+        path = "/data/web_static/releases/"
         put(archive_path, '/tmp/')
         run("mkdir -p {} {}/".format(path, archive_name))
         run("tar -xzf /tmp/{} -C {}{}/".format(archive_filename, path, archive_name))

@@ -12,11 +12,11 @@ def do_deploy(archive_path):
     if exists(archive_path) is False:
         return False
     try:
-        rchive_filename = archive_path.split('/')[-1]
+        archive_filename = archive_path.split('/')[-1]
         archive_name = archive_filename.split('.')[0]
         path = "/data/web_static/releases/"
         put(archive_path, '/tmp/')
-        run("mkdir -p {} {}/".format(path, archive_name))
+        run("mkdir -p {}{}/".format(path, archive_name))
         run("tar -xzf /tmp/{} -C {}{}/".format(archive_filename, path, archive_name))
         run("rm /tmp/{}".format(archive_filename))
         run('mv {0}{1}/web_static/* {0}{1}/'.format(path, archive_name))

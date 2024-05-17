@@ -5,6 +5,8 @@ import models
 from models.city import City
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
+import shlex
+
 
 class State(BaseModel, Base):
     """ State class """
@@ -12,8 +14,23 @@ class State(BaseModel, Base):
     name = Column(String(128), nullable=False)
     cities = relationship("City", cascade="all, delete, delete-orphan", backref="state")
 
+    # @property
+    # def cities(self):
+    #     lista = [city for city in models.storage.all() if
+    #         isinstance(city, City) and city.state_id == State.id]
+    #     return lista
+
     @property
     def cities(self):
-        lista = [city for city in models.storage.all() if
-            isinstance(city, City) and city.state_id == State.id]
-        return lista
+        var = models.storage.all()
+        lista = []
+        result = []
+        for key in var:
+            city = key.replace('.', ' ')
+            city = shlex.split(city)
+            if (city[0] == 'City'):
+                lista.append(var[key])
+        for elem in lista:
+            if (elem.state_id == self.id):
+                result.append(elem)
+        return (result)

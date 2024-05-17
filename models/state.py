@@ -5,6 +5,8 @@ import models
 from models.city import City
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
+""" from engine import storage """
+
 
 class State(BaseModel, Base):
     """ State class """
@@ -14,6 +16,7 @@ class State(BaseModel, Base):
 
     @property
     def cities(self):
-        lista = [city for city in models.storage.all() if
-            isinstance(city, City) and city.state_id == State.id]
-        return lista
+        if models.storage_type != 'db':
+            lista = [city for city in models.storage.all() if
+                isinstance(city, City) and city.state_id == State.id]
+            return lista

@@ -11,9 +11,9 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
-
 import os
 from sqlalchemy import MetaData
+
 
 class DBStorage():
     __engine = None
@@ -34,7 +34,8 @@ class DBStorage():
         if env == 'test':
             Base.metadata.drop_all(self.__engine)
 
-        Session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
+        Session = scoped_session(
+                sessionmaker(bind=self.__engine, expire_on_commit=False))
         self.__session = Session()
 
     def all(self, cls=None):
@@ -60,11 +61,16 @@ class DBStorage():
             self.__session.delete(obj)
 
     def reload(self):
-        """Create all tables in the database and create the current database session"""
+        """
+            Create all tables in the database
+            and create the current database session
+        """
         Base.metadata.create_all(self.__engine)
-        Session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
+        Session = scoped_session(
+                sessionmaker(bind=self.__engine, expire_on_commit=False))
         self.__session = Session()
 
     def close(self):
-        Session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
+        Session = scoped_session(
+                sessionmaker(bind=self.__engine, expire_on_commit=False))
         Session.remove()

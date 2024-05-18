@@ -47,18 +47,20 @@ class BaseModel:
         storage.save()
 
     def to_dict(self):
-        """Convert instance into dict format"""
-        dictionary = {}
-        dictionary.update(self.__dict__)
-        dictionary.update({'__class__':
-                          (str(type(self)).split('.')[-1]).split('\'')[0]})
-        dictionary['created_at'] = self.created_at.isoformat()
-        dictionary['updated_at'] = self.updated_at.isoformat()
-
-        if '_sa_instance_state' in dictionary:
-            del dictionary['_sa_instance_state']
-
-        return dictionary
+        """
+            custom representation of a model
+        """
+        custom = self.__dict__.copy()
+        custom_dict = {}
+        custom_dict.update({"__class__": self.__class__.__name__})
+        for key in list(custom):
+            if key in ("created_at", "updated_at"):
+                custom_dict.update({key: getattr(self, key).isoformat()})
+            elif key == "_sa_instance_state":
+                custom.pop(key)
+            else:
+                custom_dict.update({key: getattr(self, key)})
+        return custom_dict
 
     def delete(self):
         """ deletes the current instance from the storage """

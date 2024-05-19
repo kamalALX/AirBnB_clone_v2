@@ -11,7 +11,7 @@ app = Flask(__name__)
 def states():
     """ Display a HTML page with the list of states """
     original_dict = storage.all("State")
-    new_dict ={}
+    new_dict = {}
 
     for key, value in original_dict.items():
         if 'name' in value:
@@ -19,6 +19,7 @@ def states():
 
     sorted_dict = OrderedDict(sorted(new_dict.items()))
     return render_template('7-states_list.html', states=sorted_dict)
+
 
 @app.teardown_appcontext
 def teardown(exception):

@@ -21,11 +21,16 @@ def route_states():
 
 
 @app.route("/states/<id>", strict_slashes=False)
-def route_city():
-        pep_fix = models.dummy_classes["State"]
-        data = models.storage.all(cls=pep_fix)
-        states = data.values()
-        return render_template('8-cities_by_states.html', states_list=states)
+def states_list_id(id):
+    """Displays a HTML page"""
+    states = storage.all(State).values()
+    ok = 0
+    idied_state = None
+    for state in states:
+        if state.id == id:
+            idied_state = state
+            ok = 1
+    return render_template("9-states.html", states=idied_state, ok=ok)
 
 
 if __name__ == "__main__":

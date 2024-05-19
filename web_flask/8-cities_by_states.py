@@ -9,12 +9,11 @@ from models import storage
 app = Flask(__name__)
 
 
-@app.route("/states_list", strict_slashes=False)
-def route_states():
-        pep_fix = models.dummy_classes["State"]
-        data = models.storage.all(cls=pep_fix)
-        states = data.values()
-        return render_template('7-states_list.html', states_list=states)
+@app.route('/states_list', strict_slashes=False)
+def states_list():
+    """display a HTML page with the states listed in alphabetical order"""
+    states = sorted(list(storage.all("State").values()), key=lambda x: x.name)
+    return render_template('7-states_list.html', states=states)
 
 
 @app.route('/cities_by_states', strict_slashes=False)
